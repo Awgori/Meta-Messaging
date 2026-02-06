@@ -1,3 +1,5 @@
+```md
+
 Meta Messaging App
 Task 2-A: Facebook Messenger & WhatsApp Integration
 📖 Project Overview
@@ -89,6 +91,8 @@ No hardcoded secrets or tokens
 
 
 🧱 Project Structure
+```md
+
 Meta-Messaging/
 ├── frontend/
 │   └── index.html        # Phone-style UI (UI reference)
