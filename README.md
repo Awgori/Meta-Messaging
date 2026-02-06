@@ -17,23 +17,14 @@ The app supports sending text messages and interactive messages and includes bas
 
 ---
 
-## Tech Stack
+## Tech Stack & Tools
 
-### Backend
-- Node.js
-- Express.js
-- Axios
+**Backend:** Node.js, Express.js  
+**HTTP Requests:** Axios  
+**Messaging Platforms:** Facebook Messenger Platform, WhatsApp Cloud API (Meta)  
+**Dev & Testing Tools:** Postman, Ngrok (for webhook testing)  
+**Configuration & Environment:** dotenv
 
-### Messaging Platforms
-- Facebook Messenger Platform
-- WhatsApp Cloud API (Meta)
-
-### Dev & Testing Tools
-- Postman (API testing)
-- Ngrok (Webhook tunneling)
-
-### Configuration
-- dotenv (environment variables)
 
 ---
 
