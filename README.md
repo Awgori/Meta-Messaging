@@ -57,66 +57,78 @@ Meta-Messaging/
 ```bash
 git clone https://github.com/YOUR_USERNAME/Meta-Messaging.git
 cd Meta-Messaging
-
+```
 2. Install dependencies
+```
 npm install
-
-3. Configure environment variables
-
+```
+4. Configure environment variables
+```
 Create a .env file in the root directory:
 
+# Server configuration
 PORT=3000
 
-META_PAGE_ACCESS_TOKEN=your_facebook_page_access_token
-META_VERIFY_TOKEN=your_webhook_verify_token
+# Facebook Messenger credentials
+MESSENGER_PAGE_TOKEN=
+WEBHOOK_VERIFY_TOKEN=
 
-WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
-WHATSAPP_ACCESS_TOKEN=your_whatsapp_access_token
+# WhatsApp Cloud API credentials
+WHATSAPP_TOKEN=
+WHATSAPP_PHONE_ID=
 
 ⚠️ Do not commit the .env file.
-
+```
 4. Run the application
+```   
 npm start
+```
 
 The server will run at:
+```
 http://localhost:3000
+```
+Webhook testing (Optional)
+```
+ngrok http 3000
+```
+---
+## API Endpoints
+---
 
-API Endpoints
-Send Messenger Message
+Messenger
 POST /send/messenger
-
-
-Example payload:
-
+```
 {
   "psid": "USER_PSID",
   "message": "Hello from Messenger!"
 }
-
-Send WhatsApp Message
-POST /send/whatsapp
-
-
-Example payload:
-
+```
+WhatsApp /send/whatsapp
+```
 {
-  "to": "639XXXXXXXXX",
+  "phone": "639XXXXXXXXX",
   "message": "Hello from WhatsApp!"
 }
+```
 
 Webhooks
-Messenger & WhatsApp Webhook
-POST /webhook
-GET /webhook
+```
+GET /webhook – Webhook verification
+POST /webhook – Incoming messages & status events
+Webhook events are logged to the console for debugging.
+```
+Message Flow
+---
+```
+Client
+  ↓
+API Endpoint (/send/messenger or /send/whatsapp)
+  ↓
+Service Layer
+  ↓
+Meta Platform (Messenger / WhatsApp)
+  ↓
+End User
+```
 
-
-Used for:
-
-Incoming messages
-
-Message status updates
-
-Logs are printed to the console for debugging.
-
-Message Flow Diagram
-Client → API Endpoint → Meta Platform → Messenger / WhatsApp User
