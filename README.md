@@ -1,293 +1,131 @@
-```md
+# Meta Messenger & WhatsApp Messaging Integration
 
-Meta Messaging App
-Task 2-A: Facebook Messenger & WhatsApp Integration
-📖 Project Overview
+This repository contains a Node.js backend application that integrates:
+- Facebook Messenger Platform
+- WhatsApp Cloud API
 
-The Meta Messaging App is a simple external messaging application that integrates Facebook Messenger and WhatsApp Cloud API using Meta’s official APIs.
+The app supports sending text messages and interactive messages and includes basic webhook handling.
 
-This project demonstrates how an application can:
+---
 
-Send messages through Messenger and WhatsApp
+## Project Features
+- Send messages via Facebook Messenger
+- Send messages via WhatsApp Cloud API
+- Supports text messages and interactive messages
+- Webhook handling for incoming messages and status updates
+- Secure configuration using environment variables
 
-Handle incoming messages via webhooks
+---
 
-Test API endpoints using Postman
+## Tech Stack
 
-Reference a provided UI template while respecting Meta platform limitations
+### Backend
+- Node.js
+- Express.js
+- Axios
 
-The application simulates how catch history and weather forecast data for generative AI mobile applications for fisheries can be delivered to users through messaging platforms.
+### Messaging Platforms
+- Facebook Messenger Platform
+- WhatsApp Cloud API (Meta)
 
-Messenger and WhatsApp are used as communication channels, not as the main user interface.
+### Dev & Testing Tools
+- Postman (API testing)
+- Ngrok (Webhook tunneling)
 
-🎯 Objectives (Task 2-A)
+### Configuration
+- dotenv (environment variables)
 
-Research Messenger Platform and WhatsApp Cloud API
+---
 
-Integrate message sending into an existing repository
+## Project Structure
 
-Implement backend API endpoints
-
-Handle webhook events
-
-Test APIs using Postman
-
-Secure credentials using environment variables
-
-Reference a provided UI template in an external application
-
-Properly document setup, usage, and message flow
-
-✨ Features
-Facebook Messenger
-
-Text message sending
-
-Interactive button message
-
-PSID-based message delivery
-
-WhatsApp Cloud API
-
-Text message sending
-
-Button-triggered send action
-
-Cloud API authentication
-
-API Testing (Postman)
-
-Manual testing of Messenger endpoints
-
-Manual testing of WhatsApp endpoints
-
-JSON request/response validation
-
-Error handling verification
-
-Application UI
-
-External web-based application
-
-Mobile phone–style layout
-
-Dark / gray / white color theme
-
-UI design inspired by the provided template
-
-Webhooks
-
-Incoming message logging
-
-Message status logging
-
-Console-based monitoring
-
-Security & Configuration
-
-Environment variable usage
-
-No hardcoded secrets or tokens
-
-
-🧱 Project Structure
-```md
-
+```
 Meta-Messaging/
-├── frontend/
-│   └── index.html        # Phone-style UI (UI reference)
 ├── src/
-│   ├── index.js          # Express server entry point
-│   └── routes/
-│       ├── messenger.js  # Messenger integration
-│       ├── whatsapp.js   # WhatsApp Cloud API integration
-│       └── webhook.js    # Webhook handlers
-├── .env.example          # Environment variable template
+│   ├── routes/
+│   │   ├── messenger.js
+│   │   ├── whatsapp.js
+│   │   └── webhook.js
+│   ├── services/
+│   │   ├── messengerService.js
+│   │   └── whatsappService.js
+│   └── index.js
+├── .env.example
 ├── .gitignore
 ├── package.json
+├── package-lock.json
 └── README.md
-
-⚙️ Technologies & Tools Used
-
-Node.js
-Express.js
-Axios
-Facebook Messenger Platform
-WhatsApp Cloud API
-Meta Graph API
-Postman (API testing and validation)
-HTML / CSS (External UI)
-
-🔐 Environment Variables
-PORT=3000
-
-# Facebook Messenger
-FB_PAGE_ACCESS_TOKEN=YOUR_PAGE_ACCESS_TOKEN
-FB_VERIFY_TOKEN=YOUR_VERIFY_TOKEN
-
-# WhatsApp Cloud API
-WHATSAPP_TOKEN=YOUR_WHATSAPP_CLOUD_API_TOKEN
-WHATSAPP_PHONE_NUMBER_ID=YOUR_PHONE_NUMBER_ID
-
-.env is listed in .gitignore
+```
 
 
-🚀 Setup & Running the App
-1.) Install dependencies
+---
+
+## Setup Instructions
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/YOUR_USERNAME/Meta-Messaging.git
+cd Meta-Messaging
+
+2. Install dependencies
 npm install
 
-2.) Start the server
-node src/index.js
+3. Configure environment variables
 
-Expected output:
-Server running on port 3000
+Create a .env file in the root directory:
 
-API Testing Using Postman
+PORT=3000
 
-Postman was used to test, debug, and validate all API endpoints before UI integration.
+META_PAGE_ACCESS_TOKEN=your_facebook_page_access_token
+META_VERIFY_TOKEN=your_webhook_verify_token
 
-Why Postman was used:
+WHATSAPP_PHONE_NUMBER_ID=your_phone_number_id
+WHATSAPP_ACCESS_TOKEN=your_whatsapp_access_token
 
-To verify correct API requests
+⚠️ Do not commit the .env file.
 
-To inspect JSON payloads
+4. Run the application
+npm start
 
-To test Meta API responses
+The server will run at:
+http://localhost:3000
 
-To confirm authentication tokens work
-
-To troubleshoot errors
-
-📤 Send Messenger Message (Postman)
-
-Endpoint
-
+API Endpoints
+Send Messenger Message
 POST /send/messenger
 
 
-Headers
-
-Content-Type: application/json
-
-
-Body (raw JSON)
+Example payload:
 
 {
   "psid": "USER_PSID",
-  "message": "Hello from Meta Messaging App"
+  "message": "Hello from Messenger!"
 }
 
-
-✅ Expected Result:
-
-Message is delivered to Facebook Messenger
-
-API returns a success response
-
-📤 Send WhatsApp Message (Postman)
-
-Endpoint
-
+Send WhatsApp Message
 POST /send/whatsapp
 
 
-Headers
-
-Content-Type: application/json
-
-
-Body (raw JSON)
+Example payload:
 
 {
-  "phone": "639XXXXXXXXX",
-  "message": "Hello from Meta Messaging App"
+  "to": "639XXXXXXXXX",
+  "message": "Hello from WhatsApp!"
 }
 
-
-✅ Expected Result:
-
-Message is delivered to WhatsApp
-
-Message status is logged via webhook
-
-Using the Application UI
-
-Open your browser and navigate to:
-
-http://localhost:3000
+Webhooks
+Messenger & WhatsApp Webhook
+POST /webhook
+GET /webhook
 
 
-The interface:
+Used for:
 
-Is styled like a mobile phone
+Incoming messages
 
-Includes Messenger send button
+Message status updates
 
-Includes WhatsApp send button
-
-Triggers backend API calls
-
-Displays response feedback for testing
-
- Webhook Endpoints
-Messenger Webhook
-POST /webhook/messenger
-
-
-Receives incoming messages
-
-Logs sender PSID
-
-Used for user identification
-
-WhatsApp Webhook
-POST /webhook/whatsapp
-
-
-Receives incoming messages
-
-Receives delivery/read status updates
-
-Example logged payload:
-
-{
-  "from": "639XXXXXXXXX",
-  "text": {
-    "body": "Test message"
-  }
-}
+Logs are printed to the console for debugging.
 
 Message Flow Diagram
-User
- ↓
-Postman / UI Button
- ↓
-Express Backend API
- ↓
-Meta Graph API
- ↓
-Messenger / WhatsApp
- ↓
-Webhook Events
- ↓
-Server Console Logs
-
-Clarification on UI Reference Instruction
-
-The provided UI template was used strictly as a design reference.
-
-Due to Meta platform limitations:
-
-Messenger and WhatsApp do not allow custom UI embedding
-
-Only text and predefined interactive elements are supported
-
-Therefore:
-
-The UI exists as an external application
-
-Messenger and WhatsApp serve as message delivery channels
-
-This approach follows official Meta API standards.
-
-
+Client → API Endpoint → Meta Platform → Messenger / WhatsApp User
