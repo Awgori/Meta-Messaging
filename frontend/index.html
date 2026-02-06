@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task2A Messaging App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and font */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      background-color: #1e1e1e; 
+      color: #fff;
+    }
+
+    .container {
+      background-color: #2c2c2c;
+      border-radius: 20px;
+      padding: 20px;
+      width: 360px; /* phone width */
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    h1, h2 { text-align: center; margin-bottom: 20px; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 18px; color: #aaa; }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+      background-color: #3a3a3a;
+      color: #fff;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #4a90e2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #357ab7;
+    }
+
+    #status {
+      margin-top: 20px;
+      text-align: center;
+      color: #4caf50;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Task2A Messaging App</h1>
+
+    <!-- Messenger -->
+    <h2>Send Messenger Message</h2>
+    <input id="messenger-psid" placeholder="Recipient PSID" />
+    <textarea id="messenger-msg" placeholder="Message text"></textarea>
+    <button onclick="sendMessenger()">Send Messenger</button>
+
+    <!-- WhatsApp -->
+    <h2>Send WhatsApp Message</h2>
+    <input id="whatsapp-phone" placeholder="Recipient Phone (+639XXXXXXXXX)" />
+    <textarea id="whatsapp-msg" placeholder="Message text"></textarea>
+    <button onclick="sendWhatsApp()">Send WhatsApp</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    async function sendMessenger() {
+      const psid = document.getElementById("messenger-psid").value;
+      const message = document.getElementById("messenger-msg").value;
+      try {
+        const res = await fetch("/send/messenger", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ psid, message })
+        });
+        const data = await res.json();
+        document.getElementById("status").innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("status").innerText = "Error sending Messenger message";
+      }
+    }
+
+    async function sendWhatsApp() {
+      const phone = document.getElementById("whatsapp-phone").value;
+      const message = document.getElementById("whatsapp-msg").value;
+      try {
+        const res = await fetch("/send/whatsapp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone, message })
+        });
+        const data = await res.json();
+        document.getElementById("status").innerText = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("status").innerText = "Error sending WhatsApp message";
+      }
+    }
+  </script>
+</body>
+</html>

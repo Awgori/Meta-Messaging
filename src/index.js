@@ -4,6 +4,9 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
+// Serve frontend
+app.use(express.static("frontend"));
+
 // Health check route
 app.get("/", (req, res) => {
   res.json({ status: "Meta Messaging API running" });
