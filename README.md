@@ -1,11 +1,18 @@
-# Meta Messenger & WhatsApp Messaging Integration
+## Meta Messenger & WhatsApp Messaging Integration
 
 This repository contains a Node.js backend application that integrates:
 - Facebook Messenger Platform
 - WhatsApp Cloud API
-
 The app supports sending text messages and interactive messages and includes basic webhook handling.
 
+
+---
+## Prerequisites
+- Before running the project, make sure you have:
+- Node.js v18+ installed
+- npm (comes with Node.js)
+- Postman (for testing API endpoints)
+- Ngrok (optional, for webhook testing on localhost)
 ---
 
 ## Project Features
